@@ -1,4 +1,5 @@
 import { Moment } from "moment";
+import IConsultation from "./IConsultation";
 
 interface IPacient {
   id: number,
@@ -10,6 +11,8 @@ interface IPacient {
   app?: string,
   apnp?: string,
   ago?: string,
+  consultations?: IConsultation[], 
+
   createdAt: Moment,
   updatedAt: Moment,
 }

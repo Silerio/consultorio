@@ -6,9 +6,11 @@ import { Button, Col, Row, Tooltip } from 'antd';
 import { CalendarOutlined, FileSyncOutlined, MedicineBoxOutlined } from '@ant-design/icons';
 import useModal, { IUseModal } from '../../hooks/useModal';
 import { NavigateFunction, useNavigate } from 'react-router';
+import getPacients from '../../services/Pacients';
+import useService, { IUseService } from '../../hooks/useService';
 
 interface IPacientsPageControllerResp{
-  pacients: IPacient[]
+  pacientsState: IUseService<IPacient[]>,
   getPacientActions?: (pacient: IPacient) => React.ReactNode,
   FormatsModalHook: IUseModal,
   selectedPacient: IPacient | undefined,
@@ -20,17 +22,10 @@ const PacientsPageController = (): IPacientsPageControllerResp => {
   const navigate = useNavigate();
 
   const [selectedPacient, setSelectedPacient] = useState<IPacient>();
-  const [pacients, setPacients] = useState<IPacient[]>([...Array(10)].map((element, index) => (
-    {
-      id: index,
-      name: faker.name.fullName(),
-      phone: faker.phone.number(),
-      email: faker.internet.email(),
-      address: faker.address.streetAddress(),
-      createdAt: moment(),
-      updatedAt: moment(),
-    }
-  )));
+  
+  const pacientsState = useService<IPacient[]>({
+    fetchData: getPacients,
+  });
 
   function onClickGenerateFormats(pacient: IPacient){
     setSelectedPacient(pacient);
@@ -79,7 +74,7 @@ const PacientsPageController = (): IPacientsPageControllerResp => {
   }
   
   return {
-    pacients,
+    pacientsState,
     getPacientActions,
     FormatsModalHook,
     selectedPacient,

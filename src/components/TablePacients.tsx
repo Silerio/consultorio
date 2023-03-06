@@ -5,16 +5,15 @@ import IPacient from '../interfaces/IPacient';
 import { MailOutlined, PhoneFilled } from '@ant-design/icons';
 import moment from 'moment';
 import ButtonClipboard from './ButtonClipboard';
+import { IUseService } from '../hooks/useService';
 
 interface ITablePacientsProps {
-  data: IPacient[],
-  loading: boolean,
+  dataState: IUseService<IPacient[]>,
   getActions?: (pacient: IPacient) => React.ReactNode,
 }
 
 const TablePacients = ({
-  data,
-  loading,
+  dataState,
   getActions,
 }: ITablePacientsProps) => {
   const columns: ColumnsType<IPacient> = [
@@ -45,14 +44,14 @@ const TablePacients = ({
       title: 'Última consulta',
       dataIndex: 'createdAt',
       render: (date) => (
-        moment(date).format('LL')
+        moment(date).format('LLL')
       )
     },
     {
       title: 'Próxima consulta',
       dataIndex: 'updatedAt',
       render: (date) => (
-        moment(date).format('LL')
+        moment(date).format('LLL')
       )
     },
     getActions ? ({
@@ -64,9 +63,10 @@ const TablePacients = ({
 
   return (
     <Table 
-      loading={loading}
+      loading={dataState.loading}
       columns={columns} 
-      dataSource={data}
+      dataSource={dataState.data || []}
+      onChange={dataState.onChangePage}
       rowKey="id"
     />
   );

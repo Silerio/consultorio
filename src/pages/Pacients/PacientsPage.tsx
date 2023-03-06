@@ -8,7 +8,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 
 const PacientsPage: React.FC = () => {  
   const {
-    pacients,
+    pacientsState,
     getPacientActions,
     FormatsModalHook,
     selectedPacient,
@@ -40,7 +40,7 @@ const PacientsPage: React.FC = () => {
         </Row>
         <Row>
           <Col span={24}>
-            <TablePacients data={pacients} loading={false} getActions={getPacientActions} />
+            <TablePacients dataState={pacientsState} getActions={getPacientActions} />
           </Col>
         </Row>
       </Card>

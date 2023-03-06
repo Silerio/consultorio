@@ -49,7 +49,7 @@ const MedicalHistoryPage: React.FC = () => {
             {
               pacients.map((p, i) => (
                 <Col span={24}>
-                  <Card title={`Expediente Médico ${i+1}`} bordered={false} extra={p.updatedAt.format('LLLL')}>
+                  <Card title={`Expediente Médico ${i+1}`} bordered={false}>
                     <Row>
                       <Col span={24}>
                         Datos sobre el expediente médico. (Información llenada en la consulta)
